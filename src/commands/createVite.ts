@@ -1,7 +1,7 @@
 import type { Argv, ArgumentsCamelCase } from 'yargs'
 import type { PromptObject } from 'prompts'
 
-import { create, runTask } from '../taks'
+import { createTask, runTask } from '../taks'
 
 export const createVite = (cli: Argv<{}>) => {
   cli.command(
@@ -25,7 +25,7 @@ export const createVite = (cli: Argv<{}>) => {
           }
         ]
         runTask(questions).then((params: CommandParams) => {
-          create(params).catch((err) => {
+          createTask(params).catch((err) => {
             console.error(err)
             process.exit(1)
           })

@@ -1,10 +1,27 @@
-import { makeDir } from '../utils'
+import ora from 'ora'
 
-export const create = async (params: CommandParams) => {
+import { dowloadTask } from './download'
+import { makeDir, removeDir } from '../utils'
+
+export const createTask = async (params: CommandParams) => {
   try {
-    const data = await makeDir(params.name)
-    console.log(data)
-    return Promise.resolve()
+    const projectDir = await makeDir(params.name)
+
+    const spinner = ora('Downloading repository...').start()
+    dowloadTask({
+      repo: 'github:yyd1142/vite-react-template',
+      dest: projectDir,
+      fn: (error: any) => {
+        if (error) {
+          console.log(error)
+          spinner.fail('Download failed')
+          removeDir(projectDir)
+        } else {
+          spinner.succeed('Download completed')
+          return Promise.resolve()
+        }
+      }
+    })
   } catch (error) {
     return Promise.reject(error)
   }

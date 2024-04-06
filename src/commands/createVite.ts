@@ -1,10 +1,11 @@
-import prompts from 'prompts'
-import { red } from 'kolorist'
-import type { Argv } from 'yargs'
+import type { Argv, ArgumentsCamelCase } from 'yargs'
+import type { PromptObject } from 'prompts'
+
+import { create, runTask } from '../taks'
 
 export const createVite = (cli: Argv<{}>) => {
   cli.command(
-    'create [name]',
+    'create-vite [name]',
     'create a react app base on vite',
     (program: any) => {
       return program.option('name', {
@@ -13,24 +14,22 @@ export const createVite = (cli: Argv<{}>) => {
         describe: 'Project name'
       })
     },
-    async (argv) => {
+    async (argv: ArgumentsCamelCase) => {
       if (argv.name) {
       } else {
-        const result: any = await prompts(
-          [
-            {
-              type: 'text',
-              name: 'name',
-              message: 'Project name:'
-            }
-          ],
+        const questions: PromptObject[] = [
           {
-            onCancel: () => {
-              throw new Error(red('✖') + ' Operation cancelled')
-            }
+            type: 'text',
+            name: 'name',
+            message: 'Project name:'
           }
-        )
-        console.info(result)
+        ]
+        runTask(questions).then((params: CommandParams) => {
+          create(params).catch((err) => {
+            console.error(err)
+            process.exit(1)
+          })
+        })
       }
     }
   )

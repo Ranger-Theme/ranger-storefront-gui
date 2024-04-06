@@ -11,10 +11,11 @@ type Options = {
 }
 
 type CommandParams = {
-  install: boolean
-  git: boolean
-  platform: PlatFormType
-  package: string
+  name: string
+  install?: boolean
+  git?: boolean
+  platform?: PlatFormType
+  package?: string
   type?: string
   ui?: string
   styled?: string

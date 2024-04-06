@@ -1,10 +1,11 @@
-import prompts from 'prompts'
-import { red } from 'kolorist'
-import type { Argv } from 'yargs'
+import type { Argv, ArgumentsCamelCase } from 'yargs'
+import type { PromptObject } from 'prompts'
+
+import { runTask } from '../taks'
 
 export const createNext = (cli: Argv<{}>) => {
   cli.command(
-    'create [name]',
+    'create-next [name]',
     'create a react app base on nextjs',
     (program: any) => {
       return program.option('name', {
@@ -13,24 +14,19 @@ export const createNext = (cli: Argv<{}>) => {
         describe: 'Project name'
       })
     },
-    async (argv) => {
+    async (argv: ArgumentsCamelCase) => {
       if (argv.name) {
       } else {
-        const result: any = await prompts(
-          [
-            {
-              type: 'text',
-              name: 'name',
-              message: 'Project name:'
-            }
-          ],
+        const questions: PromptObject[] = [
           {
-            onCancel: () => {
-              throw new Error(red('✖') + ' Operation cancelled')
-            }
+            type: 'text',
+            name: 'name',
+            message: 'Project name:'
           }
-        )
-        console.info(result)
+        ]
+        runTask(questions).then((params: any) => {
+          console.info('params:', params)
+        })
       }
     }
   )

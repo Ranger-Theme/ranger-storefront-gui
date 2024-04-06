@@ -3,20 +3,21 @@ import gitclone from 'git-clone'
 import * as rm from 'rimraf'
 import type { DownloadOptions } from 'download'
 
-import { getUrl, normalize } from '../utils'
+import { getUrl, normalize, logInfo } from '../utils'
 
 interface DowloadOpt extends DownloadOptions {
   clone?: boolean
 }
 
 export interface DowloadTask {
+  dir: string
   repo: string
   dest: string
   opts?: DowloadOpt
   fn?: (error?: any) => void
 }
 
-export const dowloadTask = ({ repo, dest, opts = {}, fn = () => {} }: DowloadTask) => {
+export const dowloadTask = async ({ dir, repo, dest, opts = {}, fn = () => {} }: DowloadTask) => {
   const target = normalize(repo)
   const clone: boolean = opts?.clone || false
   const url: string = target.url || getUrl(target, clone)
@@ -26,7 +27,7 @@ export const dowloadTask = ({ repo, dest, opts = {}, fn = () => {} }: DowloadTas
       checkout: target.checkout,
       shallow: target.checkout === 'master'
     }
-    gitclone(url, dest, cloneOptions, function (err) {
+    await gitclone(url, dest, cloneOptions, function (err) {
       if (err === undefined) {
         rm.sync(dest + '/.git')
         fn()
@@ -45,12 +46,21 @@ export const dowloadTask = ({ repo, dest, opts = {}, fn = () => {} }: DowloadTas
         ...(opts.headers || {})
       }
     }
-    download(url, dest, downloadOptions)
-      .then(function (data) {
-        console.log(data)
+
+    await download(url, dest, downloadOptions)
+      .then((files: any) => {
+        for (const file of files) {
+          if (file.data.toString().length > 0) {
+            logInfo(
+              `-- info: ${dir}/${file.path} (${(file.data.toString().length / 1024).toFixed(2)}kb)`
+            )
+          } else {
+            logInfo(`${dir}/${file.path}`)
+          }
+        }
         fn()
       })
-      .catch(function (err) {
+      .catch((err: any) => {
         fn(err)
       })
   }

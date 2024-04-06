@@ -7,17 +7,18 @@ export const createTask = async (params: CommandParams) => {
   try {
     const projectDir = await makeDir(params.name)
 
-    const spinner = ora('Downloading repository...').start()
+    const spinner = ora('Downloading template...').start()
     dowloadTask({
-      repo: 'github:yyd1142/vite-react-template',
+      dir: params.name,
+      repo: 'github:AsuraLuo/Magento-Vite4-Seo-Ecommerce',
       dest: projectDir,
       fn: (error: any) => {
         if (error) {
           console.log(error)
-          spinner.fail('Download failed')
+          spinner.fail('Template download failed')
           removeDir(projectDir)
         } else {
-          spinner.succeed('Download completed')
+          spinner.succeed('Template download completed')
           return Promise.resolve()
         }
       }

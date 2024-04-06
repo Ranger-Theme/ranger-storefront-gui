@@ -25,10 +25,12 @@ export const createVite = (cli: Argv<{}>) => {
           }
         ]
         runTask(questions).then((params: CommandParams) => {
-          createTask(params).catch((err) => {
-            console.error(err)
-            process.exit(1)
-          })
+          if (params) {
+            createTask(params).catch((err) => {
+              console.error(err)
+              process.exit(1)
+            })
+          }
         })
       }
     }

@@ -35,6 +35,9 @@ dependencies:
   is-binary-path:
     specifier: ^2.1.0
     version: 2.1.0
+  kolorist:
+    specifier: ^1.8.0
+    version: 1.8.0
   prompts:
     specifier: ^2.4.2
     version: 2.4.2
@@ -64,6 +67,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.24
     version: 20.12.2
+  '@types/prompts':
+    specifier: ^2.4.9
+    version: 2.4.9
   '@types/validate-npm-package-name':
     specifier: ^4.0.2
     version: 4.0.2
@@ -587,6 +593,13 @@ packages:
     resolution: {integrity: sha512-zQ0NYO87hyN6Xrclcqp7f8ZbXNbRfoGWNcMvHTPQp9UUrwI0mI7XBz+cu7/W6/VClYo2g63B0cjull/srU7LgQ==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
+
+  /@types/prompts@2.4.9:
+    resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
+    dependencies:
+      '@types/node': 20.12.2
+      kleur: 3.0.3
     dev: true
 
   /@types/validate-npm-package-name@4.0.2:
@@ -1407,6 +1420,9 @@ packages:
   /kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
+
+  /kolorist@1.8.0:
+    resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
     dev: false
 
   /levn@0.4.1:

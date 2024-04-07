@@ -1,4 +1,4 @@
-# @ranger-theme/create-utopia-app <a href="https://npmjs.com/package/@ranger-theme/create-utopia-app"><img src="https://img.shields.io/npm/v/@ranger-theme/create-utopia-app" alt="npm package"></a>
+# @utopia-theme/create-utopia-app <a href="https://npmjs.com/package/@utopia-theme/create-utopia-app"><img src="https://img.shields.io/npm/v/@utopia-theme/create-utopia-app" alt="npm package"></a>
 
 ## Scaffolding Your First Project
 
@@ -8,24 +8,24 @@ npm publish --access public
 ```
 
 > **Compatibility Note:**
-> @ranger-theme/create-utopia-app requires [Node.js](https://nodejs.org/en/) version 18+, 20+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
+> @utopia-theme/create-utopia-app requires [Node.js](https://nodejs.org/en/) version 18+, 20+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
 
 With NPM:
 
 ```bash
-npm install @ranger-theme/create-utopia-app -g
+npm install @utopia-theme/create-utopia-app -g
 ```
 
 With Yarn:
 
 ```bash
-yarn install @ranger-theme/create-utopia-app -g
+yarn install @utopia-theme/create-utopia-app -g
 ```
 
 With PNPM:
 
 ```bash
-pnpm add @ranger-theme/create-utopia-app -g
+pnpm add @utopia-theme/create-utopia-app -g
 ```
 
 Then follow the prompts!
@@ -34,13 +34,13 @@ You can also directly specify the project name and the template you want to use 
 
 ```bash
 # create nextjs project
-npm create @ranger-theme/ranger-appi create-next my-nextjs-app
+npm create @utopia-theme/utopia-appi create-next my-nextjs-app
 
 # create vite project
-yarn create @ranger-theme/ranger-app create-vite my-vite-app
+yarn create @utopia-theme/utopia-app create-vite my-vite-app
 
 # pnpm vite project
-pnpm create @ranger-theme/ranger-app create-nest my-nextjs-app
+pnpm create @utopia-theme/utopia-app create-nest my-nextjs-app
 
 ```
 
@@ -69,16 +69,16 @@ You can use `.` for the project name to scaffold in the current directory.
 cat ~/.npmrc 
 ```
 
-## Install @ranger-theme/create-utopia-app globally
+## Install @utopia-theme/create-utopia-app globally
 ```bash
 # npm
-npm install @ranger-theme/create-utopia-app -g
+npm install @utopia-theme/create-utopia-app -g
 
 # yarn
-yarn install @ranger-theme/create-utopia-app -g
+yarn install @utopia-theme/create-utopia-app -g
 
 # pnpm
-pnpm add @ranger-theme/create-utopia-app -g
+pnpm add @utopia-theme/create-utopia-app -g
 ```
 
 ## Create project by cli

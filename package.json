@@ -1,5 +1,5 @@
 {
-  "name": "@ranger-theme/create-utopia-app",
+  "name": "@utopia-theme/create-utopia-app",
   "version": "0.1.0",
   "description": "Utopia cli quick start program utilities",
   "type": "module",

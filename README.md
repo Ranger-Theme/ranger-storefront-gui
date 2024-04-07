@@ -1,4 +1,4 @@
-# @ranger-theme/create-ranger-app <a href="https://npmjs.com/package/@ranger-theme/create-ranger-app"><img src="https://img.shields.io/npm/v/@ranger-theme/create-ranger-app" alt="npm package"></a>
+# @ranger-theme/create-utopia-app <a href="https://npmjs.com/package/@ranger-theme/create-utopia-app"><img src="https://img.shields.io/npm/v/@ranger-theme/create-utopia-app" alt="npm package"></a>
 
 ## Scaffolding Your First Project
 
@@ -8,24 +8,24 @@ npm publish --access public
 ```
 
 > **Compatibility Note:**
-> @ranger-theme/create-ranger-app requires [Node.js](https://nodejs.org/en/) version 18+, 20+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
+> @ranger-theme/create-utopia-app requires [Node.js](https://nodejs.org/en/) version 18+, 20+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
 
 With NPM:
 
 ```bash
-npm install @ranger-theme/create-ranger-app -g
+npm install @ranger-theme/create-utopia-app -g
 ```
 
 With Yarn:
 
 ```bash
-yarn install @ranger-theme/create-ranger-app -g
+yarn install @ranger-theme/create-utopia-app -g
 ```
 
 With PNPM:
 
 ```bash
-pnpm add @ranger-theme/create-ranger-app -g
+pnpm add @ranger-theme/create-utopia-app -g
 ```
 
 Then follow the prompts!
@@ -69,28 +69,28 @@ You can use `.` for the project name to scaffold in the current directory.
 cat ~/.npmrc 
 ```
 
-## Install @ranger-theme/create-ranger-app globally
+## Install @ranger-theme/create-utopia-app globally
 ```bash
 # npm
-npm install @ranger-theme/create-ranger-app -g
+npm install @ranger-theme/create-utopia-app -g
 
 # yarn
-yarn install @ranger-theme/create-ranger-app -g
+yarn install @ranger-theme/create-utopia-app -g
 
 # pnpm
-pnpm add @ranger-theme/create-ranger-app -g
+pnpm add @ranger-theme/create-utopia-app -g
 ```
 
 ## Create project by cli
 ```bash
 # 使用命令
-ranger-cli
+utopia-cli
 # or
-create-ranger-app
+create-utopia-app
 ```
 
 ```bash
-Usage: create-ranger-app <command> [option]
+Usage: create-utopia-app <command> [option]
 
 Ocloud cli quick start program utilities
 
@@ -107,7 +107,7 @@ Commands:
   create-vite [options] [project-name]     Create a react project by vite.
   create-webpack [options] [project-name]  Create a react project by webpack.
 
-Run ranger-cli <command> --help for detailed usage of given command.
+Run utopia-cli <command> --help for detailed usage of given command.
       
 
              _                 _            _ _ 

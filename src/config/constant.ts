@@ -1,3 +1,5 @@
+import type { Commands, Schematic, Templates } from '../typing'
+
 export const schematics: Schematic[] = [
   {
     name: 'components',

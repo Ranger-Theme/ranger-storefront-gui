@@ -2,6 +2,7 @@ import type { Argv, ArgumentsCamelCase } from 'yargs'
 import type { PromptObject } from 'prompts'
 
 import { createTask, runTask } from '../taks'
+import type { CommandParams } from '../typing'
 
 export const createNext = (cli: Argv<{}>) => {
   cli.command(
@@ -16,6 +17,13 @@ export const createNext = (cli: Argv<{}>) => {
     },
     async (argv: ArgumentsCamelCase) => {
       if (argv.name) {
+        const params: CommandParams = {
+          name: argv.name as string
+        }
+        createTask(params).catch((err) => {
+          console.error(err)
+          process.exit(1)
+        })
       } else {
         const questions: PromptObject[] = [
           {

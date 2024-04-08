@@ -1,5 +1,6 @@
 import type { Argv } from 'yargs'
 
+import type { CommandType } from '../typing'
 import { createNext } from './createNext'
 import { createVite } from './createVite'
 

@@ -1,7 +1,9 @@
 import ora from 'ora'
 
-import { dowloadTask } from './download'
+import type { CommandParams } from '../typing'
+import { remoteRepo } from '../config'
 import { makeDir, removeDir } from '../utils'
+import { dowloadTask } from './download'
 
 export const createTask = async (params: CommandParams) => {
   try {
@@ -10,7 +12,7 @@ export const createTask = async (params: CommandParams) => {
     const spinner = ora('Downloading template...').start()
     dowloadTask({
       dir: params.name,
-      repo: 'github:AsuraLuo/Magento-Vite4-Seo-Ecommerce',
+      repo: remoteRepo,
       dest: projectDir,
       fn: (error: any) => {
         if (error) {

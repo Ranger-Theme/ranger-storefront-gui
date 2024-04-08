@@ -55,7 +55,7 @@ export const dowloadTask = async ({ dir, repo, dest, opts = {}, fn = () => {} }:
               `-- info: ${dir}/${file.path} (${(file.data.toString().length / 1024).toFixed(2)}kb)`
             )
           } else {
-            logInfo(`${dir}/${file.path}`)
+            logInfo(`-- info: ${dir}/${file.path}`)
           }
         }
         fn()

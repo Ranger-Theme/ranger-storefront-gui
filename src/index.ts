@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import chalk from 'chalk'
 import dedent from 'dedent'
+import figlet from 'figlet'
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
 
+import type { PkgType } from './typing'
 import { createCommands } from './commands'
 import { createOptions } from './options'
 
@@ -31,10 +34,16 @@ const bootstrap = async () => {
     .alias('v', 'version')
     .wrap(cli.terminalWidth())
     .epilogue(
-      dedent`
-      When a command fails, all logs are written to lerna-debug.log in the current working directory.
-      For more information, check out the docs at https://lerna.js.org/docs/introduction
-    `
+      figlet.textSync('utopia-cli', {
+        horizontalLayout: 'default',
+        verticalLayout: 'default',
+        width: 100,
+        whitespaceBreak: true
+      }) + '\r\n\r\n'
+    )
+    .epilogue(
+      dedent`Run ${chalk.cyan('utopia-cli <command> --help')} for detailed usage of given command.
+      `
     )
     .group(['debug'], 'Dev Options:')
     .group(['command', 'registry', 'list'], 'Extra Options:')

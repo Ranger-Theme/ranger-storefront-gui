@@ -1,0 +1,1 @@
+export { dependency } from './dependency'

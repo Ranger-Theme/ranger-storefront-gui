@@ -6,7 +6,10 @@ export default defineConfig((options: Options) => {
     entry: ['./src/index.ts'],
     outDir: 'dist',
     clean: true,
-    dts: true,
+    dts: {
+      resolve: true,
+      entry: ['./src/typing/index.ts']
+    },
     splitting: false,
     watch: options.watch,
     sourcemap: !!options.watch,

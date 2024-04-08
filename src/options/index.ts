@@ -1,5 +1,6 @@
 import type { Argv } from 'yargs'
 
+import type { CommandType } from '../typing'
 import { commandOption } from './command'
 import { debugOption } from './debug'
 import { listOption } from './list'

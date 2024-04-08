@@ -1,6 +1,6 @@
 {
   "name": "@utopia-theme/create-utopia-app",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Utopia cli quick start program utilities",
   "type": "module",
   "main": "dist/index.js",
@@ -22,7 +22,7 @@
     "build": "tsup",
     "cli": "node dist/index.js",
     "clean": "rimraf dist",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run clean && pnpm run build"
   },
   "dependencies": {
     "chalk": "^5.3.0",

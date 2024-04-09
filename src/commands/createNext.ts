@@ -2,6 +2,7 @@ import type { Argv, ArgumentsCamelCase } from 'yargs'
 import type { PromptObject } from 'prompts'
 
 import { createTask, runTask } from '../taks'
+import { general, dependency, nextjs } from '../prompt'
 import type { CommandParams } from '../typing'
 
 export const createNext = (cli: Argv<{}>) => {
@@ -17,21 +18,21 @@ export const createNext = (cli: Argv<{}>) => {
     },
     async (argv: ArgumentsCamelCase) => {
       if (argv.name) {
-        const params: CommandParams = {
-          name: argv.name as string
-        }
-        createTask(params).catch((err) => {
-          console.error(err)
-          process.exit(1)
+        const questions: PromptObject[] = [
+          ...general.slice(1, general.length - 1),
+          ...dependency,
+          ...nextjs
+        ]
+        runTask(questions).then((params: CommandParams) => {
+          if (params) {
+            createTask({ ...params, name: argv.name as string }).catch((err) => {
+              console.error(err)
+              process.exit(1)
+            })
+          }
         })
       } else {
-        const questions: PromptObject[] = [
-          {
-            type: 'text',
-            name: 'name',
-            message: 'Project name:'
-          }
-        ]
+        const questions: PromptObject[] = [...general, ...dependency, ...nextjs]
         runTask(questions).then((params: any) => {
           if (params) {
             createTask(params).catch((err) => {

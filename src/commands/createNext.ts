@@ -12,7 +12,6 @@ export const createNext = (cli: Argv<{}>) => {
     (program: any) => {
       return program.option('name', {
         type: 'sring',
-        alias: 'n',
         describe: 'Project name'
       })
     },

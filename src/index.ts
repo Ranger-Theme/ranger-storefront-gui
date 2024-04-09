@@ -68,6 +68,11 @@ const bootstrap = async () => {
   createCommands(cli)
   createOptions(cli)
 
+  cli.command('*', false, () => {
+    // cli.showHelp()
+    // process.exit()
+  })
+
   await cli.parseAsync()
 
   if (!process.argv.slice(2).length) {

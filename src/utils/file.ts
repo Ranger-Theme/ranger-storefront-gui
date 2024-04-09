@@ -1,6 +1,11 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import util from 'node:util'
+import isBinaryPath from 'is-binary-path'
+import ejs from 'ejs'
+import { execSync } from 'node:child_process'
+import { execa } from 'execa'
+import { globby } from 'globby'
 
 const readdir = util.promisify(fs.readdir)
 const stat = util.promisify(fs.stat)
@@ -55,3 +60,50 @@ export const copyFiles = async (dir: string, target: string) => {
     console.warn('Error copying files:', err)
   }
 }
+
+export const renderFile = async (filePath: string, params: any): Promise<any> => {
+  if (isBinaryPath(filePath)) {
+    const data = await fs.readFileSync(filePath)
+    return data
+  }
+
+  const content = await fs.readFileSync(filePath, 'utf-8')
+  // 使用 ejs 编译模版
+  if (filePath.indexOf('.ejs') > -1) {
+    const template = ejs.compile(content, { delimiter: '%' })
+    // 替换占位字符串参数
+    const result = template(params?.options ?? {})
+    return result
+  } else {
+    return content
+  }
+}
+
+export const getFilesFormDir = async (cwd: string, params: any) => {
+  const promises = []
+  const files = await globby(['**/*'], { cwd, dot: true })
+
+  for (let i = 0, len = files.length; i < len; i += 1) {
+    const file = files[i]
+    const targetPath = path.resolve(cwd, file)
+    promises.push(renderFile(targetPath, params))
+  }
+
+  return (await Promise.all(promises)).reduce((acc, cur, i) => {
+    acc[files[i]] = cur
+    return acc
+  }, {})
+}
+
+export const hasGit = (): boolean => {
+  try {
+    execSync('git --version', { stdio: 'ignore' })
+    return true
+  } catch (e) {
+    console.error(e)
+    return false
+  }
+}
+
+export const runCommand = async (dir: string, command: string, ...args: any[]) =>
+  execa(command, args, { cwd: dir })

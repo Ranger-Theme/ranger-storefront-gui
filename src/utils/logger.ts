@@ -8,6 +8,14 @@ export const logInfo = (info: string, dim?: string) => {
   return str
 }
 
+export const logSuccess = (info: string, dim?: string) => {
+  if (!info) return
+
+  const str = dim ? chalk.green.dim(dim, info) : chalk.green(info)
+  console.log(str)
+  return str
+}
+
 export const logWarning = (warning: string, dim?: string) => {
   if (!warning) return
 

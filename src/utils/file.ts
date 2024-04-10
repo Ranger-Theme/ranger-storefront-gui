@@ -59,13 +59,9 @@ export const copyFiles = async (dir: string, files: any, params?: EjsParams) => 
       const filePath: string = path.resolve(dir, newFileName)
       await fs.ensureDir(path.dirname(filePath))
       await fs.writeFileSync(filePath, files[name])
-      await fs.stat(filePath, (err, stats) => {
-        if (err) {
-          console.error(err)
-        } else {
-          logInfo(`-- info: ${newFileName} (${(stats.size / 1024).toFixed(2)}kb)`)
-        }
-      })
+      await logInfo(
+        `-- info: ${newFileName} (${(files[name].toString().length / 1024).toFixed(2)}kb)`
+      )
     })
 
     return Promise.all(streams)

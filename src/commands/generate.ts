@@ -1,8 +1,9 @@
 import type { Argv, ArgumentsCamelCase } from 'yargs'
 
-import { schematics } from '../config'
 import type { Schematic } from '../typing'
-// import { generateTask, runTask } from '../tasks'
+import { schematics } from '../config'
+import { react } from '../prompt'
+import { generateTask, runTask } from '../tasks'
 import { logError, logListAsTable } from '../utils'
 
 const buildDescription = async (collection: any[]): Promise<string> => {
@@ -40,13 +41,13 @@ export const generate = (cli: Argv<{}>) => {
       )
       if (match) {
         if (name) {
-          // generateTask(match, name)
+          generateTask(match, name)
         } else {
-          // const question: any[] = [react[match.name]]
-          // await runTask(question).then((values: any) => {
-          //   const value = Object.values(values)?.[0] as string
-          //   generateTask(match, value)
-          // })
+          const question: any[] = [react[match.name]]
+          await runTask(question).then((values: any) => {
+            const value = Object.values(values)?.[0] as string
+            generateTask(match, value)
+          })
         }
       } else {
         console.info(await buildDescription(schematics))

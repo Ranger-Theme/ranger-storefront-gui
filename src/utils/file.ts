@@ -1,16 +1,13 @@
 import path from 'node:path'
-import fs from 'node:fs'
-import util from 'node:util'
+import fs from 'fs-extra'
 import isBinaryPath from 'is-binary-path'
 import ejs from 'ejs'
 import { execSync } from 'node:child_process'
 import { execa } from 'execa'
 import { globby } from 'globby'
 
-const readdir = util.promisify(fs.readdir)
-const stat = util.promisify(fs.stat)
-const copyFile = util.promisify(fs.copyFile)
-const mkdir = util.promisify(fs.mkdir)
+import type { EjsParams } from '../typing'
+import { logInfo } from '../utils'
 
 export const makeDir = (name: string) => {
   const filePath: string = path.join(process.cwd(), name)
@@ -38,24 +35,40 @@ export const removeDir = (dir: string) => {
   })
 }
 
-export const copyFiles = async (dir: string, target: string) => {
+export const copyFiles = async (dir: string, files: any, params?: EjsParams) => {
   try {
-    await mkdir(target, { recursive: true })
+    const streams = Object.keys(files).map(async (name: any) => {
+      let newFileName: string = name.split('.ejs')[0]
 
-    const files = await readdir(dir)
+      // if (params) {
+      //   // Components Handlebars
+      //   if (name === 'components.tsx.hbs') {
+      //     const comName: string = params?.options?.componentName ?? ''
+      //     const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
+      //     newFileName = newFileName.replace(params.name, filename)
+      //   }
 
-    for (const file of files) {
-      const srcFilePath = path.join(dir, file)
-      const destFilePath = path.join(target, file)
+      //   // Provider Handlebars
+      //   if (name === 'provider.tsx.hbs') {
+      //     const comName: string = params?.options?.providerName ?? ''
+      //     const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
+      //     newFileName = newFileName.replace(params.name, `${filename}Provider`)
+      //   }
+      // }
 
-      const fileStat = await stat(srcFilePath)
+      const filePath: string = path.resolve(dir, newFileName)
+      await fs.ensureDir(path.dirname(filePath))
+      await fs.writeFileSync(filePath, files[name])
+      await fs.stat(filePath, (err, stats) => {
+        if (err) {
+          console.error(err)
+        } else {
+          logInfo(`-- info: ${newFileName} (${(stats.size / 1024).toFixed(2)}kb)`)
+        }
+      })
+    })
 
-      if (fileStat.isDirectory()) {
-        await copyFiles(srcFilePath, destFilePath)
-      } else {
-        await copyFile(srcFilePath, destFilePath)
-      }
-    }
+    return Promise.all(streams)
   } catch (err) {
     console.warn('Error copying files:', err)
   }

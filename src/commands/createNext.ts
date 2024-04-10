@@ -1,7 +1,7 @@
 import type { Argv, ArgumentsCamelCase } from 'yargs'
 import type { PromptObject } from 'prompts'
 
-import { createTask, runTask } from '../taks'
+import { createTask, runTask } from '../tasks'
 import { general, dependency, nextjs } from '../prompt'
 import type { CommandParams } from '../typing'
 

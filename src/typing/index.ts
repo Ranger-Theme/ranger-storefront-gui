@@ -39,3 +39,13 @@ export interface Commands extends Templates {}
 export interface CommandType {
   (cli: Argv<{}>): void
 }
+
+export type EjsParams = {
+  name: string
+  alias: string
+  description: string
+  options: {
+    componentName?: string
+    providerName?: string
+  }
+}

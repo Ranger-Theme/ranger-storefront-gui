@@ -10,6 +10,7 @@ import { hideBin } from 'yargs/helpers'
 import type { PkgType } from './typing'
 import { createCommands } from './commands'
 import { createOptions } from './options'
+import { logInfo } from './utils'
 
 const readPkg = (): PkgType => {
   const pkgPath: string = path.join(__dirname, '../package.json')
@@ -42,7 +43,9 @@ const bootstrap = async () => {
       }) + '\r\n\r\n'
     )
     .epilogue(
-      dedent`Run ${chalk.cyan('utopia-cli <command> --help')} for detailed usage of given command.
+      dedent`Run ${chalk.cyan(
+        '⚡ utopia-cli <command> --help'
+      )} for detailed usage of given command.
       `
     )
     .group(['debug'], 'Dev Options:')
@@ -61,17 +64,23 @@ const bootstrap = async () => {
 
         console.error(`${pkgName}:`, actual.message)
       }
-
+      console.info(
+        figlet.textSync('utopia-cli', {
+          horizontalLayout: 'default',
+          verticalLayout: 'default',
+          width: 100,
+          whitespaceBreak: true
+        }) + '\r\n\r\n'
+      )
+      logInfo(dedent`Run ${chalk.cyan(
+        '⚡ utopia-cli <command> --help'
+      )} for detailed usage of given command.
+      `)
       cli.exit(actual.exitCode > 0 ? actual.exitCode : 1, actual)
     })
 
   createCommands(cli)
   createOptions(cli)
-
-  cli.command('*', false, () => {
-    cli.showHelp()
-    process.exit()
-  })
 
   await cli.parseAsync()
 

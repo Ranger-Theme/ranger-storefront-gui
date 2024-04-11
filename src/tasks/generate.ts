@@ -28,5 +28,5 @@ export const generateTask = async (match: Schematic, name: string) => {
 
   const files = await getFilesFormDir(cwd, params)
   await copyFiles(targetDir, files, params)
-  await logSuccess(`-- ${match.name}: created ${name} success.`)
+  await logSuccess(`-- 🎉 ${match.name}: created ${name} success.`)
 }

@@ -1,0 +1,39 @@
+import { useCallback, useMemo, useReducer } from 'react'
+
+import { <%= reducerName %>Reducer, initState } from './reducer'
+
+export const use<%= reducerName %>State = () => {
+  const [state, dispatch] = useReducer(<%= reducerName %>Reducer, initState, () => initState)
+
+  const toggleLoading = useCallback(
+    (payload: any) => {
+      dispatch({ payload, type: 'loading' })
+    },
+    [dispatch]
+  )
+
+  const login = useCallback(
+    (payload: any) => {
+      dispatch({ payload, type: 'login' })
+    },
+    [dispatch]
+  )
+
+  const logout = useCallback(
+    (payload: any) => {
+      dispatch({ payload, type: 'logout' })
+    },
+    [dispatch]
+  )
+
+  const api = useMemo(
+    () => ({
+      toggleLoading,
+      login,
+      logout,
+    }),
+    [toggleLoading, login, logout]
+  )
+
+  return [state, api]
+}

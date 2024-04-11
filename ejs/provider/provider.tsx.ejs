@@ -1,0 +1,22 @@
+import { createContext, useContext, useState, useMemo } from 'react'
+
+const <%= providerName %>Context = createContext({})
+
+const <%= providerName %>Provider = ({ children, ...props }) => {
+  const [config, setConfig] = useState<any>({})
+
+  const api = useMemo(
+    () => ({
+      setConfig
+    }),
+    [actions, asyncActions]
+  )
+
+  const contextValue = useMemo(() => [config, api], [config, api])
+
+  return <<%= providerName %>Context.Provider value={contextValue}>{children}</<%= providerName %>Context.Provider>
+}
+
+export default <%= providerName %>Provider
+
+export const use<%= providerName %>Context = () => useContext(<%= providerName %>Context)

@@ -9,6 +9,14 @@ import { globby } from 'globby'
 import type { EjsParams } from '../typing'
 import { logInfo } from '../utils'
 
+declare global {
+  var lowcaseFirst: (value: string) => string
+}
+
+global.lowcaseFirst = (value: string) => {
+  return `${value.charAt(0).toLowerCase()}${value.slice(1)}`
+}
+
 export const makeDir = (name: string) => {
   const filePath: string = path.join(process.cwd(), name)
 
@@ -40,21 +48,21 @@ export const copyFiles = async (dir: string, files: any, params?: EjsParams) => 
     const streams = Object.keys(files).map(async (name: any) => {
       let newFileName: string = name.split('.ejs')[0]
 
-      // if (params) {
-      //   // Components Handlebars
-      //   if (name === 'components.tsx.hbs') {
-      //     const comName: string = params?.options?.componentName ?? ''
-      //     const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
-      //     newFileName = newFileName.replace(params.name, filename)
-      //   }
+      if (params) {
+        // Components Handlebars
+        if (name === 'components.tsx.ejs') {
+          const comName: string = params?.options?.componentName ?? ''
+          const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
+          newFileName = newFileName.replace(params.name, filename)
+        }
 
-      //   // Provider Handlebars
-      //   if (name === 'provider.tsx.hbs') {
-      //     const comName: string = params?.options?.providerName ?? ''
-      //     const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
-      //     newFileName = newFileName.replace(params.name, `${filename}Provider`)
-      //   }
-      // }
+        // Provider Handlebars
+        if (name === 'provider.tsx.ejs') {
+          const comName: string = params?.options?.providerName ?? ''
+          const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
+          newFileName = newFileName.replace(params.name, `${filename}Provider`)
+        }
+      }
 
       const filePath: string = path.resolve(dir, newFileName)
       await fs.ensureDir(path.dirname(filePath))

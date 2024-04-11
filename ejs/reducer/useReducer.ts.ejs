@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useReducer } from 'react'
 
-import { <%= reducerName %>Reducer, initState } from './reducer'
+import { <%= lowcaseFirst(reducerName) %>Reducer, initState } from './reducer'
 
-export const use<%= reducerName %>State = () => {
+export const use<%= uppercaseFirst(reducerName) %>Reducer = () => {
   const [state, dispatch] = useReducer(<%= reducerName %>Reducer, initState, () => initState)
 
   const toggleLoading = useCallback(

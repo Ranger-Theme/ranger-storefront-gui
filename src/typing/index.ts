@@ -46,6 +46,8 @@ export type EjsParams = {
   description: string
   options: {
     componentName?: string
+    hookName?: string
     providerName?: string
+    reducerName?: string
   }
 }

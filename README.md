@@ -1,5 +1,49 @@
 # @utopia-theme/create-utopia-app <a href="https://npmjs.com/package/@utopia-theme/create-utopia-app"><img src="https://img.shields.io/npm/v/@utopia-theme/create-utopia-app" alt="npm package"></a>
 
+**Features**
+
+- 🖥️ Utopia cli
+- 🔗 Create react related framework
+- ✨ Optimized precache
+- 🔥 Support the quick create components, hooks, provider...
+- 🌏 Download template form githup remote repo
+
+## References Library
+- typescript
+- ejs
+- prompts
+- yargs
+- git-clone
+- download
+- execa
+- tsup
+
+## Documentation
+
+### Dir Tree
+
+```
+.
+├── ejs                                 ejs template
+├── src                                 source code
+├────── commands                        commands folder
+├────── config                          config folder  
+├────── options                         options folder
+├────── prompt                          prompt folder
+├────── tasks                           tasks folder
+├────── typing                          typing folder
+├────── utils                           utils folder
+├────── index.ts                        index file
+├── .editorconfig                       vscode editor config
+├── .gitignore                          gitignore
+├── .prettierignore                     prettier ignore
+├── .prettierrc.cjs                     prettier config
+├── package.json                        package.json
+├── README.md                           README docs
+├── tsconfig.json                       tsconfig
+├── tsup.config.ts                      tsup config
+```
+
 ## Scaffolding Your First Project
 
 ## Repo Dir
@@ -104,31 +148,34 @@ create-utopia-app
 ```
 
 ```bash
-Usage: create-utopia-app <command> [option]
-
-Ocloud cli quick start program utilities
-
-Options:
-  -V, --version                            output the version number
-  -l, --list                               Show all currently available templates.
-  -h, --help                               display help for command
+Usage: utopia-cli <command> [options]
 
 Commands:
-  create-nest [options] [project-name]     Create a nestjs node project.
-  create-next [options] [project-name]     Create a nextjs project.
-  create [options] [project-name]          Create a frontend project.
-  create-umi [options] [project-name]      Create a react project by umi.
-  create-vite [options] [project-name]     Create a react project by vite.
-  create-webpack [options] [project-name]  Create a react project by webpack.
+  utopia-cli create-next [name]           create a react app base on nextjs
+  utopia-cli create-vite [name]           create a react app base on vite
+  utopia-cli generate <schematic> [name]  generate some react resource
+
+Dev Options:
+  -d, --debug  Boostrap debug mode                                                    [boolean]
+
+Extra Options:
+  -c, --command   Show all currently available command                                [boolean]
+  -r, --registry  Define global registry                                              [boolean]
+  -l, --list      Show all currently available template                               [boolean]
+
+Options:
+  -h, --help     Show help                                                            [boolean]
+  -v, --version  Show version number                                                  [boolean]
+
+        _              _                  _ _
+  _   _| |_ ___  _ __ (_) __ _        ___| (_)
+ | | | | __/ _ \| '_ \| |/ _` |_____ / __| | |
+ | |_| | || (_) | |_) | | (_| |_____| (__| | |
+  \__,_|\__\___/| .__/|_|\__,_|      \___|_|_|
+                |_|
+
 
 Run utopia-cli <command> --help for detailed usage of given command.
-      
-
-             _                 _            _ _ 
-   ___   ___| | ___  _   _  __| |       ___| (_)
-  / _ \ / __| |/ _ \| | | |/ _` |_____ / __| | |
- | (_) | (__| | (_) | |_| | (_| |_____| (__| | |
-  \___/ \___|_|\___/ \__,_|\__,_|      \___|_|_|
 ```
 
 ## Ejs

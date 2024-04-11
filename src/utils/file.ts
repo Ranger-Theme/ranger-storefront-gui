@@ -7,15 +7,16 @@ import { execa } from 'execa'
 import { globby } from 'globby'
 
 import type { EjsParams } from '../typing'
-import { logInfo } from '../utils'
+import { logInfo } from './logger'
+import { lowcaseFirst, uppercaseFirst } from './case'
 
 declare global {
   var lowcaseFirst: (value: string) => string
+  var uppercaseFirst: (value: string) => string
 }
 
-global.lowcaseFirst = (value: string) => {
-  return `${value.charAt(0).toLowerCase()}${value.slice(1)}`
-}
+global.lowcaseFirst = lowcaseFirst
+global.uppercaseFirst = uppercaseFirst
 
 export const makeDir = (name: string) => {
   const filePath: string = path.join(process.cwd(), name)
@@ -49,18 +50,34 @@ export const copyFiles = async (dir: string, files: any, params?: EjsParams) => 
       let newFileName: string = name.split('.ejs')[0]
 
       if (params) {
-        // Components Handlebars
+        // Components Ejs
         if (name === 'components.tsx.ejs') {
           const comName: string = params?.options?.componentName ?? ''
-          const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
+          const filename: string = lowcaseFirst(comName)
           newFileName = newFileName.replace(params.name, filename)
         }
 
-        // Provider Handlebars
+        // Hooks Ejs
+        if (name === 'useHooks.ts.ejs') {
+          const hookName: string = params?.options?.hookName ?? ''
+          const filename: string = uppercaseFirst(hookName)
+          const matchName: string = uppercaseFirst(params.name)
+          newFileName = newFileName.replace(matchName, filename)
+        }
+
+        // Provider Ejs
         if (name === 'provider.tsx.ejs') {
-          const comName: string = params?.options?.providerName ?? ''
-          const filename: string = `${comName.charAt(0).toLowerCase()}${comName.slice(1)}`
+          const providerName: string = params?.options?.providerName ?? ''
+          const filename: string = lowcaseFirst(providerName)
           newFileName = newFileName.replace(params.name, `${filename}Provider`)
+        }
+
+        // Reducer Ejs
+        if (name === 'useReducer.ts.ejs') {
+          const reducerName: string = params?.options?.reducerName ?? ''
+          const filename: string = uppercaseFirst(reducerName)
+          const matchName: string = uppercaseFirst(params.name)
+          newFileName = newFileName.replace(matchName, `${filename}Reducer`)
         }
       }
 

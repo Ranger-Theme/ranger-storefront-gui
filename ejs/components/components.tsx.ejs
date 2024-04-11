@@ -1,11 +1,11 @@
-import { Styled<%= componentName %> } from './styled'
+import { Styled<%= uppercaseFirst(componentName) %> } from './styled'
 
-const <%= componentName %> = () => {
+const <%= uppercaseFirst(componentName) %> = () => {
   return (
-    <Styled<%= componentName %>>
+    <Styled<%= uppercaseFirst(componentName) %>>
       <span><%= componentName %></span>
-    </Styled<%= componentName %>>
+    </Styled<%= uppercaseFirst(componentName) %>>
   )
 }
 
-export default <%= componentName %>
+export default <%= uppercaseFirst(componentName) %>

@@ -8,7 +8,7 @@ export const initState: InitState = {
   isLoggedIn: false
 }
 
-export const <%= reducerName %>Reducer = (state: InitState, action: any) => {
+export const <%= lowcaseFirst(reducerName) %>Reducer = (state: InitState, action: any) => {
   const { payload, type } = action
 
   switch(type) {

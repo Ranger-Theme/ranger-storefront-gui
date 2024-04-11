@@ -9,7 +9,7 @@ const <%= providerName %>Provider = ({ children, ...props }) => {
     () => ({
       setConfig
     }),
-    [actions, asyncActions]
+    [setConfig]
   )
 
   const contextValue = useMemo(() => [config, api], [config, api])

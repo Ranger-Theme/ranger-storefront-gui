@@ -69,8 +69,8 @@ const bootstrap = async () => {
   createOptions(cli)
 
   cli.command('*', false, () => {
-    // cli.showHelp()
-    // process.exit()
+    cli.showHelp()
+    process.exit()
   })
 
   await cli.parseAsync()

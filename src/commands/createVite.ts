@@ -22,9 +22,14 @@ export const createVite = (cli: Argv<{}>) => {
           ...vite,
           ...dependency
         ]
-        runTask(questions).then((params: CommandParams) => {
-          if (params) {
-            createTask({ ...params, name: argv.name as string }).catch((err) => {
+        runTask(questions).then((values: any) => {
+          if (values) {
+            const params: CommandParams = {
+              ...values,
+              platform: 'vite',
+              name: argv.name as string
+            }
+            createTask(params).catch((err) => {
               console.error(err)
               process.exit(1)
             })
@@ -32,8 +37,12 @@ export const createVite = (cli: Argv<{}>) => {
         })
       } else {
         const questions: PromptObject[] = [...general, ...vite, ...dependency]
-        runTask(questions).then((params: CommandParams) => {
-          if (params) {
+        runTask(questions).then((values: any) => {
+          if (values) {
+            const params: CommandParams = {
+              ...values,
+              platform: 'vite'
+            }
             createTask(params).catch((err) => {
               console.error(err)
               process.exit(1)

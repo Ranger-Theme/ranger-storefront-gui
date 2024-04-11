@@ -7,12 +7,15 @@ import { dowloadTask } from './download'
 
 export const createTask = async (params: CommandParams) => {
   try {
-    const projectDir = await makeDir(params.name)
+    if (!params.platform) return
+
+    const projectDir: string = await makeDir(params.name)
+    const repoDir: string = `${remoteRepo}-template-${params.platform}`
 
     const spinner = ora('Downloading template...').start()
     dowloadTask({
       dir: params.name,
-      repo: remoteRepo,
+      repo: repoDir,
       dest: projectDir,
       fn: (error: any) => {
         if (error) {

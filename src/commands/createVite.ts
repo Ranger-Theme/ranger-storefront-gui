@@ -2,7 +2,7 @@ import type { Argv, ArgumentsCamelCase } from 'yargs'
 import type { PromptObject } from 'prompts'
 
 import { createTask, runTask } from '../tasks'
-import { general, dependency } from '../prompt'
+import { general, dependency, vite } from '../prompt'
 import type { CommandParams } from '../typing'
 
 export const createVite = (cli: Argv<{}>) => {
@@ -17,7 +17,11 @@ export const createVite = (cli: Argv<{}>) => {
     },
     async (argv: ArgumentsCamelCase) => {
       if (argv.name) {
-        const questions: PromptObject[] = [...general.slice(1, general.length - 1), ...dependency]
+        const questions: PromptObject[] = [
+          ...general.slice(1, general.length - 1),
+          ...vite,
+          ...dependency
+        ]
         runTask(questions).then((params: CommandParams) => {
           if (params) {
             createTask({ ...params, name: argv.name as string }).catch((err) => {
@@ -27,7 +31,7 @@ export const createVite = (cli: Argv<{}>) => {
           }
         })
       } else {
-        const questions: PromptObject[] = [...general, ...dependency]
+        const questions: PromptObject[] = [...general, ...vite, ...dependency]
         runTask(questions).then((params: CommandParams) => {
           if (params) {
             createTask(params).catch((err) => {

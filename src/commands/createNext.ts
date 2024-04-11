@@ -19,8 +19,8 @@ export const createNext = (cli: Argv<{}>) => {
       if (argv.name) {
         const questions: PromptObject[] = [
           ...general.slice(1, general.length - 1),
-          ...dependency,
-          ...nextjs
+          ...nextjs,
+          ...dependency
         ]
         runTask(questions).then((params: CommandParams) => {
           if (params) {
@@ -31,7 +31,7 @@ export const createNext = (cli: Argv<{}>) => {
           }
         })
       } else {
-        const questions: PromptObject[] = [...general, ...dependency, ...nextjs]
+        const questions: PromptObject[] = [...general, ...nextjs, ...dependency]
         runTask(questions).then((params: any) => {
           if (params) {
             createTask(params).catch((err) => {
